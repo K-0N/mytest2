@@ -13,7 +13,9 @@ end]]
 loadstring("(" .. antileavecode .. ")();")
 
 writefile("scriptcache.atlas", game:HttpGet("https://raw.githubusercontent.com/K-0N/mytest2/refs/heads/main/" .. v))
-writefile("veryfirstjobid.txt", game.JobId)
+if not _G.IsTeleportFromPriv then
+	writefile("veryfirstjobid.txt", game.JobId)
+end
 
 local function serverhop()
     local function serverhop()
