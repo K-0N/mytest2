@@ -66,7 +66,7 @@ end)
 local LOADING = Instance.new("ScreenGui")
 if _G.IsTeleportFromPriv then
 	task.spawn(function()
-		repeat task.wait() until not LOADING.Parent and _G.IAMABSOLUTELYDONE
+		repeat task.wait() until LOADING:GetAttribute("yes") and _G.IAMABSOLUTELYDONE
 		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, readfile("veryfirstjobid.txt"), game:GetService("Players").LocalPlayer)
 	end)
 end
@@ -198,7 +198,7 @@ lc=game:GetService("RunService").Heartbeat:Connect(function(dt)
         done = true
         label.Text = "You will only see this once. Installation complete! Waiting for script to load."
 		task.wait(2)
-		--LOADING:Destroy()
+		LOADING:SetAttribute("yes", true)
 		lc:Disconnect()
         return
     end
