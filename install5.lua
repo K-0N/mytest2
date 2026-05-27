@@ -1,4 +1,4 @@
-local v='install5.lua'
+local v='install2.lua'
 
 local antileavecode = [[function()
 	while task.wait() do
@@ -63,18 +63,11 @@ task.spawn(function()
 		_G.IsTeleportFromPriv=true
 		task.spawn(al)
 		task.spawn(function() loadstring(readfile("scriptcache.atlas"))() end)
-		game:GetService("RunService").RenderStepped:Connect(function()
-			game:GetService("ReplicatedFirst"):RemoveDefaultLoadingScreen()
-		end)
 	]]):gsub("MAHLINK", v):gsub("ANTILEAVE", antileavecode))
 end)
 
 local LOADING = Instance.new("ScreenGui")
-task.spawn(function()
-	repeat task.wait() until _G.IAMABSOLUTELYDONE
-	LOADING:Destroy()
-	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, readfile("veryfirstjobid.txt"), game:GetService("Players").LocalPlayer)
-end)
+_G.thatloadinggui = LOADING
 local Frame = Instance.new("Frame")
 local UIGradient = Instance.new("UIGradient")
 local Frame_2 = Instance.new("Frame")
