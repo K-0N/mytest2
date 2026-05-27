@@ -59,9 +59,6 @@ task.spawn(function()
 		_G.IsTeleportFromPriv=true
 		task.spawn(al)
 		task.spawn(function() loadstring(readfile("scriptcache.atlas"))() end)
-		game:GetService("RunService").RenderStepped:Connect(function()
-			game:GetService("ReplicatedFirst"):RemoveDefaultLoadingScreen()
-		end)
 	]]):gsub("MAHLINK", v):gsub("ANTILEAVE", antileavecode))
 end)
 
