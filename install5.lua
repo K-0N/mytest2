@@ -90,12 +90,12 @@ local dot1 = Instance.new("Frame")
 local UICorner_4 = Instance.new("UICorner")
 
 LOADING.Name = "LOADING"
-LOADING.Parent = gethui()
-LOADING.OnTopOfCoreBlur = true
+LOADING.Parent = game.CoreGui--gethui()
+--LOADING.OnTopOfCoreBlur = true
 LOADING.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 LOADING.ResetOnSpawn = false
 LOADING.IgnoreGuiInset = true
-LOADING.DisplayOrder = 999999999
+--LOADING.DisplayOrder = 999999999
 game:GetService("TeleportService"):SetTeleportGui(LOADING)
 
 Frame.Parent = LOADING
