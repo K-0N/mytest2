@@ -8,6 +8,7 @@ local function atlasInitVars()(function()
       loadstring(game:HttpGet("https://raw.githubusercontent.com/Chris12089/atlasbss/refs/heads/main/script.lua"))()
 end)()end
 task.delay(2,atlasInitVars);
+
 local function await(object, ...)
     local Result = object
     local Paths = {...}
